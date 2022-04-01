@@ -1,17 +1,19 @@
 <template>
 <div class="admin">
-  <h1>The Admin Page!</h1>
+  <h1>Post NOW!</h1>
     <div class="heading">
       <div class="circle">1</div>
       <h2>Add an Item</h2>
     </div>
     <div class="add">
       <div class="form">
+        <input type="file" name="photo" @change="fileChanged">
+        <p></p>
         <input v-model="title" placeholder="Title">
         <p></p>
         <input v-model="textarea" placeholder="Description">
         <p></p>
-        <input type="file" name="photo" @change="fileChanged">
+        
         <button @click="upload">Upload</button>
       </div>
       <div class="upload" v-if="addItem">

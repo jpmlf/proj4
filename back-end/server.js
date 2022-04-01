@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({
 const mongoose = require('mongoose');
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/museum', {
+mongoose.connect('mongodb://localhost:27017/doors', {
   useNewUrlParser: true
 });
 
@@ -27,7 +27,10 @@ const upload = multer({
 const itemSchema = new mongoose.Schema({
   title: String,
   path: String,
-  textarea: String
+  textarea: String,
+  rating: Number,
+  numratings: Number,
+  comments: Array
 });
 
 // Create a model for items in the museum.
@@ -51,6 +54,9 @@ app.post('/api/items', async (req, res) => {
     title: req.body.title,
     path: req.body.path,
     textarea: req.body.textarea,
+    rating: 0,
+    numratings: 0,
+    comments: []
   });
   try {
     console.log(item);
@@ -75,7 +81,7 @@ app.delete('/api/items/:id', async (req, res) => {
   }
 });
 
-//edit an item
+//edit an item's title and textarea
 app.put('/api/items/:id', async (req, res) => {
   try {
     let item = await Item.findOne({
@@ -83,6 +89,41 @@ app.put('/api/items/:id', async (req, res) => {
     });
     item.title = req.body.title;
     item.textarea = req.body.textarea;
+    await item.save();
+    console.log(item);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+//edit an item's rating
+app.put('/api/rate/:id', async (req, res) => {
+  try {
+    let item = await Item.findOne({
+      _id: req.params.id
+    });
+    item.rating = ((item.rating * item.numratings) + req.body.rating)/(item.numratings + 1);
+    item.numratings += 1;
+
+    await item.save();
+    console.log(item);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+//edit an item's comments
+app.put('/api/comment/:id', async (req, res) => {
+  try {
+    let item = await Item.findOne({
+      _id: req.params.id
+    });
+    item.comments.push(req.body.comment);
+
     await item.save();
     console.log(item);
     res.sendStatus(200);

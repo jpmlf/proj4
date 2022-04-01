@@ -7,14 +7,22 @@
       </div>
     </router-link>
     <div class="title">
-      <h1>Museum of Ordinary Objects</h1>
+      <h1> Opinions.com</h1>
+    </div>
+    <div class="posts">
+      <router-link to="/post"><em>Add your opinion here!</em></router-link>
     </div>
   </div>
   <div class="content">
     <router-view />
   </div>
   <div class="footer">
-    <router-link to="/admin">Admin</router-link>
+    <p><router-link to="/admin">Admin Only!</router-link>
+    +
+    <a href="https://github.com/jpmlf/proj4">Git Hub</a>
+    + 
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Ratio</a>
+    </p>
   </div>
 </div>
 </template>
@@ -27,7 +35,7 @@ html {
 body {
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
-  background: #fff;
+  background: #F8F0FB;
   padding: 0px;
   margin: 0px;
 }
@@ -36,8 +44,8 @@ body {
 .header {
   display: flex;
   padding: 10px 100px 0px 100px;
-  background-color: #5BDEFF;
-  color: #1C454F;
+  background-color: #211A1D;
+  color: #E34A6F;
 }
 
 .title {
@@ -57,7 +65,6 @@ body {
 .footer {
   height: 50px;
   padding: 20px 100px 0px 100px;
-  background: #e3e3e3;
   font-size: 12px;
 }
 
@@ -72,4 +79,15 @@ h1 {
 h2 {
   font-size: 14px;
 }
+img {
+  height: 90px;
+}
+.posts {
+  display: block;
+  text-align: right
+}
+.posts a:link { color: #F8F0FB; text-decoration: none}
+.posts a:visited { color: #F8F0FB; text-decoration: none}
+.posts a:hover { color: #4267B2; text-decoration: underline}
+.posts a:active { color: #F8F0FB; text-decoration: none}
 </style>
